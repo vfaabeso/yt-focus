@@ -85,7 +85,7 @@ export default function Home() {
       const dy = e.clientY - lastMouseData.current.y;
       const speed = Math.hypot(dx, dy) / dt;
 
-      if (speed === 0) { // Perfect geometric rest coordinates/instant script positioning
+      if (speed < 0.001 && dt > 1000) {
         setTrackTime(180);
         setBotInsult("Cute script. Writing automated overrides just to avoid real work? If you applied that efficiency to your code, you'd have finished this app by now. Close the tab and go back to standard YouTube.");
         setTimeout(() => setBotInsult(''), 5000);
