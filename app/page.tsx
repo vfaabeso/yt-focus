@@ -20,6 +20,7 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [filtersActive, setFiltersActive] = useState(true);
   const [unlocking, setUnlocking] = useState(false);
+  const [showRestrictions, setShowRestrictions] = useState(false);
 
   // Cage Mechanics
   const [trackTime, setTrackTime] = useState(180);
@@ -130,16 +131,27 @@ export default function Home() {
           border: "1px solid #333",
         }}
       >
-        <div style={{ fontWeight: "bold", marginBottom: "0.25rem" }}>
-          Active restrictions
-        </div>
-        <div>
-          <strong>Keywords:</strong> {visibleBlockedTerms.join(", ")}
-        </div>
-        <div>
-          <strong>Categories:</strong>{" "}
-          {BANNED_CATEGORIES.map((id) => categoryLabels[id] || id).join(", ")}
-        </div>
+        <button
+          onClick={() => setShowRestrictions((v) => !v)}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "#fff",
+            padding: 0,
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          {showRestrictions
+            ? "Hide restrictions"
+            : `Show restrictions (${visibleBlockedTerms.length})`}
+        </button>
+
+        {showRestrictions && (
+          <div style={{ marginTop: "0.5rem" }}>
+            <div>{visibleBlockedTerms.join(", ")}</div>
+          </div>
+        )}
       </div>
 
       {/* Irreversible Lock Warnings */}
