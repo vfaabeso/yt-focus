@@ -12,7 +12,7 @@
 # P2 — Medium
 - [DONE] Users should be able to see which keywords and categories are banned.
 - [DONE] Prevent submitting the same keyword filter twice.
-- Add an outline to the Register Filter button.
+- [DONE] Add an outline to the Register Filter button.
 
 # P3 — Low
 - Remove the “Watch on YouTube” button from thumbnails.
