@@ -5,7 +5,7 @@
 - [DONE] Script detection falsely flags users as running a script.
 
 # P1 — High
-- The page loads too slowly.
+- [DONE] The page loads too slowly.
 - The Next.js hydration warning indicates a real frontend/rendering issue.
 - The filter-removal challenge box moves too fast, making it effectively unusable.
 
