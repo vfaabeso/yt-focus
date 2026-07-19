@@ -21,6 +21,7 @@ export default function Home() {
   const [filtersActive, setFiltersActive] = useState(true);
   const [unlocking, setUnlocking] = useState(false);
   const [showRestrictions, setShowRestrictions] = useState(false);
+  const [duplicateNotice, setDuplicateNotice] = useState("");
 
   // Cage Mechanics
   const [trackTime, setTrackTime] = useState(180);
@@ -52,7 +53,22 @@ export default function Home() {
   };
 
   const confirmAddFilter = () => {
-    setFilters([...filters, newFilter.toLowerCase().trim()]);
+    const normalized = newFilter.toLowerCase().trim();
+
+    if (!normalized) {
+      setShowModal(false);
+      return;
+    }
+
+    if (filters.some((f) => f.toLowerCase() === normalized)) {
+      setDuplicateNotice("That restriction already exists.");
+      setNewFilter("");
+      setShowModal(false);
+      return;
+    }
+
+    setFilters([...filters, normalized]);
+    setDuplicateNotice("");
     setNewFilter("");
     setShowModal(false);
   };
@@ -265,6 +281,12 @@ export default function Home() {
           Register Filter
         </button>
       </form>
+
+      {duplicateNotice && (
+        <div style={{ color: "#ff8888", marginTop: "0.5rem" }}>
+          {duplicateNotice}
+        </div>
+      )}
 
       {showModal && (
         <div
