@@ -1,6 +1,7 @@
 # P0 — Critical
-- Banned videos still appear despite banned keywords.
-- Permanently banned keywords/categories should not be able to be deactivated.
+- [DONE] Banned videos still appear despite banned keywords.
+- [SKIP] Permanently banned keywords/categories should not be able to be deactivated.
+    - May not be a good idea in the long run. Some keywords might intentionally be used for research.
 - Script detection falsely flags users as running a script.
 
 # P1 — High
