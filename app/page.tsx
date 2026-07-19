@@ -49,7 +49,22 @@ export default function Home() {
 
   const triggerAddFilter = (e) => {
     e.preventDefault();
-    if (newFilter.trim()) setShowModal(true);
+    const normalized = newFilter.trim().toLowerCase();
+
+    if (!normalized) return;
+
+    const isDuplicate =
+      filters.some((filter) => filter.toLowerCase() === normalized) ||
+      BANNED_TERMS.some((term) => term.toLowerCase() === normalized);
+
+    if (isDuplicate) {
+      setDuplicateNotice("Restriction already exists.");
+      setNewFilter("");
+      setShowModal(false);
+      return;
+    }
+
+    setShowModal(true);
   };
 
   const confirmAddFilter = () => {
@@ -61,7 +76,7 @@ export default function Home() {
     }
 
     if (filters.some((f) => f.toLowerCase() === normalized)) {
-      setDuplicateNotice("That restriction already exists.");
+      setDuplicateNotice("Restriction already exists.");
       setNewFilter("");
       setShowModal(false);
       return;
@@ -265,7 +280,10 @@ export default function Home() {
         <input
           type="text"
           value={newFilter}
-          onChange={(e) => setNewFilter(e.target.value)}
+          onChange={(e) => {
+            setNewFilter(e.target.value);
+            if (duplicateNotice) setDuplicateNotice("");
+          }}
           placeholder="Add permanent keyword constraint..."
           style={{
             padding: "0.4rem",
