@@ -294,7 +294,14 @@ export default function Home() {
         />
         <button
           type="submit"
-          style={{ padding: "0.4rem", marginLeft: "0.5rem" }}
+          style={{
+            padding: "0.4rem",
+            marginLeft: "0.5rem",
+            background: "#222",
+            color: "#ddd",
+            border: "1px solid #444",
+            cursor: "pointer",
+          }}
         >
           Register Filter
         </button>
