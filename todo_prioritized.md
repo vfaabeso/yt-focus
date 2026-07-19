@@ -10,7 +10,7 @@
 - [DONE] The filter-removal challenge box moves too fast, making it effectively unusable.
 
 # P2 — Medium
-- Users should be able to see which keywords and categories are banned.
+- [DONE] Users should be able to see which keywords and categories are banned.
 - Prevent submitting the same keyword filter twice.
 - Add an outline to the Register Filter button.
 
