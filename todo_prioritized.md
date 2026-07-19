@@ -6,7 +6,7 @@
 
 # P1 — High
 - [DONE] The page loads too slowly.
-- The Next.js hydration warning indicates a real frontend/rendering issue.
+- [DONE] The Next.js hydration warning indicates a real frontend/rendering issue.
 - The filter-removal challenge box moves too fast, making it effectively unusable.
 
 # P2 — Medium
