@@ -50,43 +50,34 @@ export default function Home() {
 
   // The Kinesthetic Cage Engine
   useEffect(() => {
-    let interval;
-    if (unlocking && trackTime > 0) {
-      interval = setInterval(() => {
-        // 1. Chaotic Vector Rescattering & Dynamic Sizing
-        setBoxPos((prev) => ({
-          x: Math.min(
-            85,
-            Math.max(15, prev.x + (Math.random() > 0.5 ? 1 : -1) * 0.8),
-          ),
-          y: Math.min(
-            85,
-            Math.max(15, prev.y + (Math.random() > 0.5 ? 1 : -1) * 0.8),
-          ),
-        }));
-        setBoxSize(Math.floor(Math.random() * 25) + 20); // Fluctuates between 20px and 45px
+    if (!unlocking || trackTime <= 0) return;
 
-        // 2. Physical Bound Validation
-        if (isInside.current) {
-          setTrackTime((p) => p - 1);
-        } else {
-          setTrackTime(180); // Strict failure reset
-        }
+    const moveInterval = setInterval(() => {
+      setBoxPos((prev) => ({
+        x: Math.min(
+          80,
+          Math.max(15, prev.x + (Math.random() > 0.5 ? 1 : -1) * 1.5),
+        ),
+        y: Math.min(
+          80,
+          Math.max(15, prev.y + (Math.random() > 0.5 ? 1 : -1) * 1.5),
+        ),
+      }));
+      setBoxSize(Math.floor(Math.random() * 25) + 20);
+    }, 500);
 
-        // 3. Modulus Interventions
-        if (trackTime % 8 === 0) {
-          setCurrentTask(
-            INTERVENTION_TASKS[
-              Math.floor(Math.random() * INTERVENTION_TASKS.length)
-            ],
-          );
-        }
-      }, 150);
-    } else if (trackTime === 0) {
-      setFiltersActive(false);
-      setUnlocking(false);
-    }
-    return () => clearInterval(interval);
+    const countdownInterval = setInterval(() => {
+      if (isInside.current) {
+        setTrackTime((p) => p - 1);
+      } else {
+        setTrackTime(180);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(moveInterval);
+      clearInterval(countdownInterval);
+    };
   }, [unlocking, trackTime]);
 
   // Anti-Automation Anomaly Interceptor
