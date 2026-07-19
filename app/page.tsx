@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { BANNED_CATEGORIES, BANNED_TERMS } from "./lib/bannedTerms";
 
 const INTERVENTION_TASKS = [
   "written the first line of boilerplate code for your project",
@@ -35,6 +36,13 @@ export default function Home() {
     const res = await fetch(`/api/videos?q=${encodeURIComponent(query)}`);
     const data = await res.json();
     setVideos(data);
+  };
+
+  const visibleBlockedTerms = [...new Set([...BANNED_TERMS, ...filters])];
+  const categoryLabels = {
+    "20": "Gaming",
+    "23": "Comedy",
+    "24": "Entertainment",
   };
 
   const triggerAddFilter = (e) => {
@@ -113,6 +121,26 @@ export default function Home() {
       }}
     >
       <h2>SHIELD STATUS: {filtersActive ? "🛡️ ACTIVE" : "⚠️ BYPASSED"}</h2>
+
+      <div
+        style={{
+          margin: "1rem 0",
+          padding: "0.75rem 1rem",
+          background: "#111",
+          border: "1px solid #333",
+        }}
+      >
+        <div style={{ fontWeight: "bold", marginBottom: "0.25rem" }}>
+          Active restrictions
+        </div>
+        <div>
+          <strong>Keywords:</strong> {visibleBlockedTerms.join(", ")}
+        </div>
+        <div>
+          <strong>Categories:</strong>{" "}
+          {BANNED_CATEGORIES.map((id) => categoryLabels[id] || id).join(", ")}
+        </div>
+      </div>
 
       {/* Irreversible Lock Warnings */}
       {filtersActive && !unlocking && (
