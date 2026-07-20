@@ -1,20 +1,19 @@
 # P0 — Critical
-- [DONE] Banned videos still appear despite banned keywords.
-- [SKIP] Permanently banned keywords/categories should not be able to be deactivated.
-    - May not be a good idea in the long run. Some keywords might intentionally be used for research.
-- [DONE] Script detection falsely flags users as running a script.
+- Fix the unlock/challenge flow so that completing the box-follow challenge actually relaxes the relevant filters.
 
 # P1 — High
-- [DONE] The page loads too slowly.
-- [DONE] The Next.js hydration warning indicates a real frontend/rendering issue.
-- [DONE] The filter-removal challenge box moves too fast, making it effectively unusable.
+- Reduce false positives in the anti-cheating detection so legitimate users are not flagged.
+- Clarify the “Deactivate Filters” behavior and confirm whether the challenge applies per keyword or globally.
+- Resolve the TypeScript/React type errors in the page component.
 
 # P2 — Medium
-- [DONE] Users should be able to see which keywords and categories are banned.
-- [DONE] Prevent submitting the same keyword filter twice.
-- [DONE] Add an outline to the Register Filter button.
+- Organize the restriction list in the UI so it is easier to scan.
+- Make the “show/hide restrictions” control easier to click throughout the full box area.
+- Add visual feedback so buttons highlight when clicked.
+- Simplify robotic or overly verbose UI copy.
 
 # P3 — Low
-- Remove the “Watch on YouTube” button from thumbnails.
-- Prefer showing titles/descriptions without thumbnails to reduce clickbait feel.
-- Simplify the robotic/overly verbose UI copy.
+- Improve the site’s branding with a better title and icon.
+- Remove or reduce the “Watch on YouTube” button on thumbnails to reduce temptation.
+- Consider removing thumbnails and showing titles/descriptions only to reduce clickbait feel.
+- Add a lightweight way to test the anti-cheating mechanic locally.
