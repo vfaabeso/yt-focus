@@ -18,10 +18,11 @@ export default function Home() {
 
   // UI States
   const [showModal, setShowModal] = useState(false);
-  const [filtersActive, setFiltersActive] = useState(true);
   const [unlocking, setUnlocking] = useState(false);
   const [showRestrictions, setShowRestrictions] = useState(false);
+  const [filtersActive, setFiltersActive] = useState(false);
   const [duplicateNotice, setDuplicateNotice] = useState("");
+  const [filterToRemove, setFilterToRemove] = useState(null);
 
   // Cage Mechanics
   const [trackTime, setTrackTime] = useState(180);
@@ -46,6 +47,11 @@ export default function Home() {
     "23": "Comedy",
     "24": "Entertainment",
   };
+
+  const startUnlock = () => {
+  setFilterToRemove(filters[0] || null);
+  setUnlocking(true);
+};
 
   const triggerAddFilter = (e) => {
     e.preventDefault();
@@ -108,7 +114,17 @@ export default function Home() {
 
     const countdownInterval = setInterval(() => {
       if (isInside.current) {
-        setTrackTime((p) => p - 1);
+        setTrackTime((p) => {
+          if (p <= 1) {
+            if (filterToRemove) {
+              setFilters((prev) => prev.filter((f) => f !== filterToRemove));
+            }
+            setFilterToRemove(null);
+            setUnlocking(false);
+            return 0;
+          }
+          return p - 1;
+        });
       } else {
         setTrackTime(180);
       }
@@ -185,10 +201,45 @@ export default function Home() {
         )}
       </div>
 
+      {showRestrictions && (
+        <div style={{ marginTop: "0.5rem" }}>
+          {filters.map((filter) => (
+            <span
+              key={filter}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                marginRight: "0.5rem",
+                marginBottom: "0.25rem",
+                padding: "0.25rem 0.5rem",
+                background: "#222",
+                border: "1px solid #444",
+              }}
+            >
+              {filter}
+              <button
+                onClick={() =>
+                  setFilters((prev) => prev.filter((f) => f !== filter))
+                }
+                style={{
+                  marginLeft: "0.4rem",
+                  background: "transparent",
+                  border: "none",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+
       {/* Irreversible Lock Warnings */}
       {filtersActive && !unlocking && (
         <button
-          onClick={() => setUnlocking(true)}
+          onClick={startUnlock}
           style={{
             background: "#300",
             color: "#ff5555",
