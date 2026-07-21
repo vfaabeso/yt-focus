@@ -13,7 +13,7 @@ const INTERVENTION_TASKS = [
 export default function Home() {
   const [query, setQuery] = useState("");
   const [videos, setVideos] = useState([]);
-  const [filters, setFilters] = useState(["shorts", "entertainment"]);
+  const [filters, setFilters] = useState([]);
   const [newFilter, setNewFilter] = useState("");
   const [activeRestrictions, setActiveRestrictions] = useState([
   ...BANNED_TERMS,
