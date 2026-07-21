@@ -237,41 +237,6 @@ export default function Home() {
         )}
       </div>
 
-      {showRestrictions && (
-        <div style={{ marginTop: "0.5rem" }}>
-          {filters.map((filter) => (
-            <span
-              key={filter}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                marginRight: "0.5rem",
-                marginBottom: "0.25rem",
-                padding: "0.25rem 0.5rem",
-                background: "#222",
-                border: "1px solid #444",
-              }}
-            >
-              {filter}
-              <button
-                onClick={() =>
-                  setFilters((prev) => prev.filter((f) => f !== filter))
-                }
-                style={{
-                  marginLeft: "0.4rem",
-                  background: "transparent",
-                  border: "none",
-                  color: "#fff",
-                  cursor: "pointer",
-                }}
-              >
-                ×
-              </button>
-            </span>
-          ))}
-        </div>
-      )}
-
       {/* Irreversible Lock Warnings */}
       {filtersActive && !unlocking && (
         <button
