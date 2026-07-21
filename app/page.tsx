@@ -15,6 +15,10 @@ export default function Home() {
   const [videos, setVideos] = useState([]);
   const [filters, setFilters] = useState(["shorts", "entertainment"]);
   const [newFilter, setNewFilter] = useState("");
+  const [activeRestrictions, setActiveRestrictions] = useState([
+  ...BANNED_TERMS,
+  ...filters,
+]);
 
   // UI States
   const [showModal, setShowModal] = useState(false);
@@ -89,6 +93,7 @@ export default function Home() {
     }
 
     setFilters([...filters, normalized]);
+    setActiveRestrictions((prev) => [...prev, normalized]);
     setDuplicateNotice("");
     setNewFilter("");
     setShowModal(false);
@@ -196,7 +201,38 @@ export default function Home() {
 
         {showRestrictions && (
           <div style={{ marginTop: "0.5rem" }}>
-            <div>{visibleBlockedTerms.join(", ")}</div>
+            {activeRestrictions.map((restriction) => (
+              <span
+                key={restriction}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  marginRight: "0.5rem",
+                  marginBottom: "0.25rem",
+                  padding: "0.25rem 0.5rem",
+                  background: "#222",
+                  border: "1px solid #444",
+                }}
+              >
+                {restriction}
+                <button
+                  onClick={() =>
+                    setActiveRestrictions((prev) =>
+                      prev.filter((item) => item !== restriction)
+                    )
+                  }
+                  style={{
+                    marginLeft: "0.4rem",
+                    background: "transparent",
+                    border: "none",
+                    color: "#fff",
+                    cursor: "pointer",
+                  }}
+                >
+                  ×
+                </button>
+              </span>
+            ))}
           </div>
         )}
       </div>
